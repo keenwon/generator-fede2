@@ -1,0 +1,28 @@
+{
+  "name": "generator-fede2",
+  "version": "1.0.0",
+  "description": "to scaffold a fede2 application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keenwon/generator-fede2.git"
+  },
+  "keywords": [
+    "generator-fede2",
+    "generator-fede",
+    "fede",
+    "fede2",
+    "yeoman-generator"
+  ],
+  "author": {
+    "name": "keenwon",
+    "email": "semanwmj@yeah.net"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keenwon/generator-fede2/issues"
+  },
+  "homepage": "https://github.com/keenwon/generator-fede2#readme",
+  "dependencies": {
+    "yeoman-generator": "^0.20.2"
+  }
+}
