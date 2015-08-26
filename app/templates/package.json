@@ -1,15 +1,10 @@
 {
-  "name": "fede2",
-  "version": "1.0.0",
-  "description": "前端开发环境，使用CommonJS模块，webpack打包",
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "description": "<%= description %>",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": {
-    "name": "keenwon",
-    "email": "semanwmj@yeah.net"
-  },
-  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.13.2",
     "del": "^1.2.0",
