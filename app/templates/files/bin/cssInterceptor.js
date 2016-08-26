@@ -1,44 +1,53 @@
 'use strict';
 
-var path = require('path'),
-    fs = require('fs'),
-    sass = require('node-sass'),
-    postcss = require('postcss'),
-    autoprefixer = require('autoprefixer');
+const path = require('path');
+const fs = require('fs');
+const postcss = require('postcss');
+const precss = require('precss');
+const postcssshort = require('postcss-short');
+const postcsseach = require('postcss-each');
+const cssnext = require('postcss-cssnext');
 
 module.exports = intercept;
 
 function intercept(staticDir) {
-    return function (req, res, next) {
-        var pathname, scssFilePath;
+    return function *(next) {
+        var pathname, pcssFilePath;
+        pathname = this.request.path;
 
-        pathname = req._parsedUrl.pathname;
         if (!/\.css$/.test(pathname)) {
-            next();
-            return;
+            return yield next;
         }
 
-        scssFilePath = path.join(staticDir, pathname.replace(/\.css/, '.scss'));
-        if (fs.existsSync(scssFilePath)) {
-            cssRender(scssFilePath, function (result) {
-                res.set('Content-Type', 'text/css');
-                res.end(result.css);
-            });
+        pcssFilePath = path.join(staticDir, pathname.replace(/\.css/, '.pcss'));
+
+        if (fs.existsSync(pcssFilePath)) {
+            var result = yield cssRender(pcssFilePath);
+            this.set('Content-Type', 'text/css');
+            this.body = result.css;
+            return yield next;
         } else {
-            next();
+            return yield next;
         }
     };
 }
 
-function cssRender(scssFilePath, callback) {
-    var css = sass.renderSync({
-        file: scssFilePath
-    }).css.toString();
+function cssRender(pcssFilePath) {
+    var css = fs.readFileSync(pcssFilePath);
 
-    postcss([autoprefixer])
-        .process(css)
-        .then(callback)
-        .catch(function (error) {
-            console.error(error);
-        });
+    return postcss([
+        postcsseach,
+        precss,
+        cssnext({
+            browsers: [
+                'ie > 7',
+                'Chrome > 0',
+                'Firefox > 0',
+                'iOS > 0',
+                'Android > 0',
+                'Edge > 0'
+            ]
+        }),
+        postcssshort
+    ]).process(css, { from: pcssFilePath })
 }

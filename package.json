@@ -1,6 +1,6 @@
 {
   "name": "generator-fede2",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "to scaffold a fede2 application",
   "repository": {
     "type": "git",
@@ -11,7 +11,11 @@
     "generator-fede",
     "fede",
     "fede2",
-    "yeoman-generator"
+    "yeoman-generator",
+    "webpack",
+    "gulp",
+    "koa",
+    "postcss"
   ],
   "author": {
     "name": "keenwon",
@@ -23,6 +27,6 @@
   },
   "homepage": "https://github.com/keenwon/generator-fede2#readme",
   "dependencies": {
-    "yeoman-generator": "^0.20.2"
+    "yeoman-generator": "^0.20.3"
   }
 }

@@ -1,0 +1,23 @@
+{
+    "disallowAttributeInterpolation": true,
+    "disallowClassAttributeWithStaticValue": true,
+    "disallowClassLiteralsBeforeIdLiterals": true,
+    "disallowIdAttributeWithStaticValue": true,
+    "disallowMultipleLineBreaks": true,
+    "disallowSpacesInsideAttributeBrackets": true,
+    "disallowSpecificAttributes": [
+        "ad",
+        "AD"
+    ],
+    "disallowSpecificTags": [
+        "b"
+    ],
+    "requireClassLiteralsBeforeAttributes": true,
+    "requireIdLiteralsBeforeAttributes": true,
+    "requireLowerCaseAttributes": true,
+    "requireLowerCaseTags": true,
+    "validateAttributeQuoteMarks": "'",
+    "validateAttributeSeparator": { "separator": " ", "multiLineSeparator": "\n " },
+    "validateDivTags": true,
+    "validateIndentation": 2
+}

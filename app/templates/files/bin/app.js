@@ -1,62 +1,70 @@
 'use strict';
 
-var path = require('path'),
-    fs = require('fs'),
+const path = require('path');
+const koa = require('koa');
+const app = koa();
+const Pug = require('koa-pug');
+const serve = require('koa-static');
 
-    express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    morgan = require('morgan'),
-    mock = require('./mock'),
+const router = require('../mock/router');
+const bodyParser = require('./bodyParser');
+const cssInterceptor = require('./cssInterceptor');
+const webpack = require('webpack');
+const webpackMiddleware = require('koa-webpack-dev-middleware');
+const config = require('../webpack.config');
 
-    devDir = path.join(__dirname, '../dev'),
-    mockDir = path.join(__dirname, '../mock'),
+const devPath = path.resolve(__dirname, '../dev');
 
-    webpackDevMiddleware = require("webpack-dev-middleware"),
-    webpack = require("webpack"),
-    ReplacePlugin = require('./ReplacePlugin'),
-    webpackConfig = require('../webpack.config.js');
+// set koa subdomainOffset
+app.subdomainOffset = 1;
 
-// views
-app.set('views', devDir);
-app.set('view engine', 'jade');
-
-// bodyParser
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-app.use(bodyParser.json());
-
-// webpack
-var mapFilePath = path.join(mockDir, '_map.js'),
-    mapRules;
-if (fs.existsSync(mapFilePath)) {
-    mapRules = require(mapFilePath);
+var locals;
+switch (app.env) {
+    case 'production':
+        locals = {
+            production: true
+        };
+        break;
+    case 'testing':
+        locals = {
+            testing: true
+        };
+        break;
+    default:
+        locals = {
+            development: true
+        };
+        break;
 }
 
-if (!(Object.prototype.toString.call(webpackConfig) === '[object Array]')) {
-    webpackConfig = [webpackConfig];
-}
-
-webpackConfig.forEach(function (currentValue, i, array) {
-    array[i].context = __dirname;
-    array[i].plugins = [
-        new ReplacePlugin(mapRules)
-    ];
+// view engine
+const pug = new Pug({
+    viewPath: './dev/pugs',
+    basedir: './dev/pugs',
+    noCache: app.env !== 'production',
+    debug: app.env !== 'production',
+    app: app,
+    locals: locals
 });
 
-app.use(webpackDevMiddleware(webpack(webpackConfig), {
-    publicPath: '/js/'
+// body parser
+app.use(bodyParser);
+
+// router
+app.use(router.routes());
+
+// postcss
+app.use(cssInterceptor(devPath));
+
+// js(webpack)
+app.use(webpackMiddleware(webpack(config), {
+    publicPath: '/script/',
+    stats: {
+        colors: true
+    }
 }));
 
-// static
-app.use(express.static(devDir));
-
-// logger
-app.use(morgan('dev'));
-
-// mock
-mock(app, mockDir);
+// static, eg: images
+app.use(serve(devPath));
 
 app.listen(3000);
-console.log('Server running at http://localhost:3000/');

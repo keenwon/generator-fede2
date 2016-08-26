@@ -1,0 +1,9 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "author": {
+    "name": "keenwon",
+    "email": "semanwmj@yeah.net"
+  },
+  "main": "index.js"
+}
