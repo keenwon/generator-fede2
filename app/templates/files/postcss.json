@@ -1,0 +1,20 @@
+{
+  "use": [
+    "postcss-each",
+    "precss",
+    "postcss-cssnext",
+    "postcss-short"
+  ],
+  "input": "dist/css/**/*.pcss",
+  "local-plugins": true,
+  "postcss-cssnext": {
+    "browsers": [
+      "ie > 7",
+      "Chrome > 0",
+      "Firefox > 0",
+      "iOS > 0",
+      "Android > 0",
+      "Edge > 0"
+    ]
+  }
+}

@@ -6,36 +6,18 @@ const app = koa();
 const Pug = require('koa-pug');
 const serve = require('koa-static');
 
+const config = require('../config');
 const router = require('../mock/router');
 const bodyParser = require('./bodyParser');
 const cssInterceptor = require('./cssInterceptor');
 const webpack = require('webpack');
 const webpackMiddleware = require('koa-webpack-dev-middleware');
-const config = require('../webpack.config');
+const webpackConfig = require('../webpack.config');
 
 const devPath = path.resolve(__dirname, '../dev');
 
 // set koa subdomainOffset
 app.subdomainOffset = 1;
-
-var locals;
-switch (app.env) {
-    case 'production':
-        locals = {
-            production: true
-        };
-        break;
-    case 'testing':
-        locals = {
-            testing: true
-        };
-        break;
-    default:
-        locals = {
-            development: true
-        };
-        break;
-}
 
 // view engine
 const pug = new Pug({
@@ -44,7 +26,12 @@ const pug = new Pug({
     noCache: app.env !== 'production',
     debug: app.env !== 'production',
     app: app,
-    locals: locals
+    locals: {
+        development: app.env === 'development',
+        testing: app.env === 'testing',
+        production: app.env === 'production',
+        cdn: config.cdn
+    }
 });
 
 // body parser
@@ -57,7 +44,7 @@ app.use(router.routes());
 app.use(cssInterceptor(devPath));
 
 // js(webpack)
-app.use(webpackMiddleware(webpack(config), {
+app.use(webpackMiddleware(webpack(webpackConfig), {
     publicPath: '/script/',
     stats: {
         colors: true

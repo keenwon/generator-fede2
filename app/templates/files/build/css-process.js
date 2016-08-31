@@ -1,24 +1,38 @@
 'use strict';
 
-const gulp = require('gulp');
-const replace = require('gulp-replace');
-const argv = require('optimist').argv;
+const config = require('../config');
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+const CleanCSS = require('clean-css');
 
-const getCdnImgUrl = function (env) {
-    return env === 'testing'
-        ? 'http://test-toa-web-cdn.pingan.com.cn/app_images/fmall'
-        : 'http://img0.yztcdn.com/app_images/fmall'
+const imageUrl = config.cdn.image;
+
+const options = {
+    keepSpecialComments: 0,
+    compatibility: 'ie7',
+    rebase: false
 };
 
-gulp.task('css-process', function () {
-    if (!argv.e) {
-        throw new gutil.PluginError('css-process', '请输入编译环境');
+glob('dist/css/**/*.css', function (error, files) {
+    if (error) {
+        throw error;
     }
 
-    var timestamp = Date.now();
+    var minified,
+        timestamp = Date.now(),
+        absFilePath;
 
-    return gulp.src('dist/css/**/*.css')
-        .pipe(replace(/(\.\.\/)+images/g, getCdnImgUrl(argv.e)))
-        .pipe(replace(/url\(([^)]+)\)/g, 'url($1?v=' + timestamp + ')'))
-        .pipe(gulp.dest('dist/css'));
+    files.forEach(file => {
+        minified = new CleanCSS(options).minify([file]).styles;
+
+        // 替换image cdn地址
+        minified = minified.replace(/(\.\.\/)+images/g, imageUrl);
+
+        // 图片添加版本号
+        minified = minified.replace(/url\(([^)]+)\)/g, 'url($1?v=' + timestamp + ')');
+
+        absFilePath = path.join(process.cwd(), file);
+        fs.writeFileSync(absFilePath, minified);
+    });
 });

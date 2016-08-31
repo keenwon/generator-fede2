@@ -60,43 +60,7 @@ module.exports = generators.Base.extend({
     },
 
     install: function () {
-        this.npmInstall([
-            'co-body',
-            'css-loader',
-            'del',
-            'gulp',
-            'gulp-copy',
-            'gulp-eslint',
-            'gulp-imagemin',
-            'gulp-minify-css',
-            'gulp-postcss',
-            'gulp-pug-linter',
-            'gulp-rename',
-            'gulp-replace',
-            'gulp-stylelint',
-            'imagemin-jpeg-recompress',
-            'imagemin-pngquant',
-            'koa',
-            'koa-pug',
-            'koa-router',
-            'koa-static',
-            'koa-subdomain',
-            'koa-webpack-dev-middleware',
-            'nodemon',
-            'optimist',
-            'postcss',
-            'postcss-cssnext',
-            'postcss-each',
-            'postcss-short',
-            'postcss-sprites',
-            'precss',
-            'pug-loader',
-            'require-dir',
-            'run-sequence',
-            'style-loader',
-            'stylelint-config-standard',
-            'webpack'
-        ], {'save': true});
+        this.runInstall('npm');
     }
 
 });
