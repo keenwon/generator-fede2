@@ -3,43 +3,40 @@ var generators = require('yeoman-generator');
 module.exports = generators.Base.extend({
 
     name: function () {
-        var done = this.async();
-
-        this.prompt({
-            type: 'input',
-            name: 'projectName',
-            message: 'name: ',
-            default: this.appname
-        }, function (answers) {
+        return this.prompt([
+            {
+                type: 'input',
+                name: 'projectName',
+                message: 'name: ',
+                default: this.appname
+            }
+        ]).then(function (answers) {
             this.projectName = answers.projectName;
-            done();
         }.bind(this));
     },
 
     version: function () {
-        var done = this.async();
-
-        this.prompt({
-            type: 'input',
-            name: 'projectVersion',
-            message: 'version: ',
-            default: '1.0.0'
-        }, function (answers) {
+        return this.prompt([
+            {
+                type: 'input',
+                name: 'projectVersion',
+                message: 'version: ',
+                default: '1.0.0'
+            }
+        ]).then(function (answers) {
             this.projectVersion = answers.projectVersion;
-            done();
         }.bind(this));
     },
 
     description: function () {
-        var done = this.async();
-
-        this.prompt({
-            type: 'input',
-            name: 'projectDescription',
-            message: 'description: '
-        }, function (answers) {
+        return this.prompt([
+            {
+                type: 'input',
+                name: 'projectDescription',
+                message: 'description: '
+            }
+        ]).then(function (answers) {
             this.projectDescription = answers.projectDescription;
-            done();
         }.bind(this));
     },
 
