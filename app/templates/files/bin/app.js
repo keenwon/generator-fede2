@@ -5,6 +5,7 @@ const koa = require('koa');
 const app = koa();
 const Pug = require('koa-pug');
 const serve = require('koa-static');
+const jsonp = require('koa-response-jsonp');
 
 const config = require('../config');
 const router = require('../mock/router');
@@ -36,6 +37,9 @@ const pug = new Pug({
 
 // body parser
 app.use(bodyParser);
+
+// jsonp support
+jsonp(app);
 
 // router
 app.use(router.routes());
