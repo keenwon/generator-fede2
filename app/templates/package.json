@@ -22,12 +22,14 @@
     "css:process": "node build/css-process",
     "imagemin": "node build/imagemin",
     "js": "node build/js",
-    "__build__": "npm run clean:dist && npm run copy && npm run css && npm run clean:icon && npm run imagemin && npm run js",
+    "header": "node build/header",
+    "__build__": "npm run clean:dist && npm run copy && npm run css && npm run clean:icon && npm run imagemin && npm run js && npm run header",
     "build:testing": "npm test && NODE_ENV=testing npm run __build__",
     "build:production": "npm test && NODE_ENV=production npm run __build__"
   },
   "dependencies": {
     "async": "^2.0.1",
+    "buffer-concat": "^1.0.0",
     "clean-css": "^3.4.19",
     "co-body": "^4.2.0",
     "colors": "^1.1.2",
