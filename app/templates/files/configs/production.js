@@ -1,9 +1,10 @@
 'use strict';
 
+// 设置生产环境的cdn地址
 module.exports = {
     cdn: {
-        js: '//i0.yztcdn.com/app_js/fmall',
-        css: '//i1.yztcdn.com/app_css/fmall',
-        image: '//img0.yztcdn.com/app_images/fmall'
+        js: '/script',
+        css: '/css',
+        image: '/images'
     }
 };

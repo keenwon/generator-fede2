@@ -1,9 +1,10 @@
 'use strict';
 
+// 设置测试环境的cdn地址
 module.exports = {
     cdn: {
-        js: '//test-toa-web-cdn.pingan.com.cn/app_js/fmall',
-        css: '//test-toa-web-cdn.pingan.com.cn/app_css/fmall',
-        image: '//test-toa-web-cdn.pingan.com.cn/app_images/fmall'
+        js: '/script',
+        css: '/css',
+        image: '/images'
     }
 };
