@@ -88,7 +88,7 @@ async.waterfall([
         data.forEach(item => {
             var absFilePath = path.resolve(item.file),
                 cssContent = fs.readFileSync(absFilePath).toString(),
-                reg = /background\-image:\s?url\(([^)]+?\/icon\/([^)]+?))\);/g;
+                reg = /background\-image:\s?url\(([^)]+?\/icon\/([^)]+?))\);?/g;
 
             cssContent = cssContent.replace(reg, function () {
                 var iconPath = arguments[1],
