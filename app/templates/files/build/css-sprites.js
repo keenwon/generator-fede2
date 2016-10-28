@@ -99,7 +99,7 @@ async.waterfall([
                     if (!item.coordinates.hasOwnProperty(key)) {
                         return;
                     }
-                    if (key.indexOf(iconName) !== -1) {
+                    if (key.includes(`icon/${iconName}`)) {
                         x = item.coordinates[key].x;
                         y = item.coordinates[key].y;
                         break;
