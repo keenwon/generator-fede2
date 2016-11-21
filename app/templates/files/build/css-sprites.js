@@ -51,6 +51,11 @@ async.waterfall([
             });
 
             spritesmith.createImages(icons, function (err, images) {
+                if(err) {
+                    console.error(err);
+                    return;
+                }
+
                 if (!images) {
                     return;
                 }
