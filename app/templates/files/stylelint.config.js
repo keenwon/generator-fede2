@@ -11,20 +11,27 @@ const customRules = {
     'rules': {
         'at-rule-empty-line-before': ['always', {
             except: [
-                'all-nested',
+                'inside-block',
                 'blockless-after-same-name-blockless',
                 'first-nested',
             ],
             ignore: ['after-comment'],
         }],
         'block-opening-brace-space-before': 'always',
+        'declaration-block-semicolon-newline-after': 'always',
         'declaration-colon-space-after': 'always',
         'declaration-empty-line-before': 'never',
         'indentation': 4,
-        'rule-nested-empty-line-before': 'never-multi-line',
-        'rule-non-nested-empty-line-before': ['always',{
-            except: ['after-single-line-comment'],
-            ignore: ['after-comment'],
+        'rule-empty-line-before': ['always',{
+            except: [
+                'after-single-line-comment',
+                'inside-block-and-after-rule',
+                'first-nested'
+            ],
+            ignore: [
+                'after-comment',
+                'inside-block'
+            ],
         }],
         'selector-list-comma-newline-after': 'always-multi-line',
         'selector-pseudo-element-colon-notation': 'single',
