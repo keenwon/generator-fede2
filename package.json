@@ -1,6 +1,6 @@
 {
   "name": "generator-fede2",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "description": "to scaffold a fede2 application",
   "repository": {
     "type": "git",
@@ -15,7 +15,11 @@
     "webpack",
     "gulp",
     "koa",
-    "postcss"
+    "postcss",
+    "pug",
+    "eslint",
+    "stylelint",
+    "puglint"
   ],
   "author": {
     "name": "keenwon",

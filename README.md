@@ -11,25 +11,30 @@
 ## Usage
 安装yo、generator-fede2
 
-    npm install -g yo generator-fede2
+```shell
+npm install -g yo generator-fede2
+```
 
 构建项目
 
-	mkdir your-project-dir
-	cd your-project-dir
-	yo fede2
+```shell
+mkdir your-project-dir
+cd your-project-dir
+yo fede2
+```
 
 运行
 
-	# 测试
-	npm test
+```shell
+# 测试
+npm test
 
-	# 编译：测试环境
-	npm run build:testing
-	
-	# 编译：生产环境
-	npm run build:production
+# 编译：测试环境
+npm run build:testing
 
+# 编译：生产环境
+npm run build:production
+```
 
 [npm-image]: https://img.shields.io/npm/v/generator-fede2.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/generator-fede2
